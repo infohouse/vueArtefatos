@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJs</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+</head>
+<body>
+    
+    <div id="div">
+     <center>
+        <h1>{{ curso }} {{ curso.split('').reverse().join('') }}</h1>
+        <br>
+        <h5> Recupera texto digitado</h5>
+        
+        <input v-on:input="recuperar" type="text">        
+        <br><br>
+        <a v-bind:href="saida" target="_blank">dinamico</a>
+        <br><br>
+        <button v-on:click="btnClica">botão</button>
+        <br><br>
+        <input v-on:keyup="teclas" placeholder="aperte uma tecla aqui">
+        <br><br>
+        <input v-on:keyup.ctrl.enter="keybS" placeholder="aperte ctrl + enter">
+        <br><br>        
+        {{ saida }}
+        <br>
+        {{ nome }}
+
+    </center>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#div",
+            data: {
+                curso: 'Vue',
+                saida: '',
+                nome: 'duda'
+            },
+            methods: {
+                recuperar: function(event){
+                    this.saida = event.target.value
+                },
+                btnClica: function(event){
+                    this.saida = 'Botão clicado'
+                },
+                frmteste: function(event){
+                    this.saida = 'submit efetuado'
+                },
+                teclas: function(event){
+                    this.saida = event.key
+                },
+                keybS: function(event){
+                    this.saida = alert('você pressionou ctrl+enter :)')
+                }
+            },
+            computed: {
+                invertido: function(){
+                    this.curso.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
