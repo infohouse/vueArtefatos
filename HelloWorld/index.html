@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJs</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<body>
+    
+    <div id="div" class="container">
+     
+        <h1 class="text-center">{{ curso }} {{ invertido }}</h1>
+        
+        
+        <div class="row" v-show="mostrar">
+            
+        <div class="col-md-4">
+        <input v-on:input="recuperar" type="text">        
+        <br><br>
+        <a v-bind:href="saida" target="_blank">dinamico</a>
+        <br><br>
+        <button v-on:click="btnClica">botão</button>
+        <br><br>
+        <input v-on:keyup="teclas" placeholder="aperte uma tecla aqui">
+        <br><br>
+        <input v-on:keyup.ctrl.enter="keybS" placeholder="aperte ctrl + enter">
+        </div>
+
+        <div class="col-md-4">
+            <p><input v-model="texto"></p>
+            <p v-if="domingo">hoje é domingo</p>
+            <p v-else>hoje não é domingo</p>
+            <button @click="domingo = !domingo" class="btn btn-info">verificar</button>
+
+            <br><br>
+            {{ texto }}
+        </div>
+
+        <div class="col-md-4">
+            <p v-if="nota > 8">Parabéns, vc passou!</p>
+            <p v-else-if="nota < 8 && nota > 6">Pode Melhorar!</p>
+            <p v-else-if="nota < 7 && nota > 1">Reprovado!</p>
+            <p v-else>Aguardando a nota...</p>
+            <p><input v-model="nota"></p>            
+            
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <br><br>        
+        {{ saida }}
+        <br>        
+            <br><button class="btn btn-info" @click="mostrar = !mostrar">toggle</button>    
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="text-center">repetição for</h1>
+            <ul class="list-group">
+                <li class="list-group-item" v-for="p in paises">{{ p }}</li>                
+              </ul>
+        </div>
+    </div>
+
+    
+        
+        
+
+    
+    </div>
+
+    <script>
+        new Vue({
+            el: "#div",
+            data: {
+                curso: 'Vue',
+                saida: '',
+                texto: '', nota: 0,
+                domingo: true, mostrar: true,
+                paises: [
+                    'Japão',
+                    'Brasil',
+                    'Argentina',
+                    'Índia',
+                    'china',
+                    'Venezuela',
+                    'USA'
+
+                ]
+                
+            },
+            methods: {
+                recuperar: function(event){
+                    this.saida = event.target.value
+                },
+                btnClica: function(event){
+                    this.saida = 'Botão clicado'
+                },
+                frmteste: function(event){
+                    this.saida = 'submit efetuado'
+                },
+                teclas: function(event){
+                    this.saida = event.key
+                },
+                keybS: function(event){
+                    this.saida = alert('você pressionou ctrl+enter :)')
+                }
+                
+            },
+            computed: {
+                invertido: function(){
+                    return this.curso.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
